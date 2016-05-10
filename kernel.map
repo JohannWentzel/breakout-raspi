@@ -1,0 +1,243 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD build/collisions.o
+LOAD build/debug.o
+LOAD build/drawshapes.o
+LOAD build/framebuffer.o
+LOAD build/gamedraw.o
+LOAD build/game.o
+LOAD build/init.o
+LOAD build/jtag.o
+LOAD build/mailbox.o
+LOAD build/main.o
+LOAD build/menu.o
+LOAD build/Screens.o
+LOAD build/SNES.o
+
+.init           0x0000000000008000        0x4
+ *(.init)
+ .init          0x0000000000008000        0x0 build/collisions.o
+ .init          0x0000000000008000        0x0 build/debug.o
+ .init          0x0000000000008000        0x0 build/gamedraw.o
+ .init          0x0000000000008000        0x0 build/game.o
+ .init          0x0000000000008000        0x0 build/init.o
+ .init          0x0000000000008000        0x4 build/main.o
+                0x0000000000008000                _start
+ .init          0x0000000000008004        0x0 build/menu.o
+ .init          0x0000000000008004        0x0 build/SNES.o
+
+.data           0x0000000000009080     0x20c0
+ *(.data)
+ .data          0x0000000000009080        0x0 build/collisions.o
+ .data          0x0000000000009080        0x0 build/debug.o
+ .data          0x0000000000009080        0x0 build/drawshapes.o
+ *fill*         0x0000000000009080      0xf80 3f3f3f3f
+ .data          0x000000000000a000     0x1000 build/framebuffer.o
+                0x000000000000a030                FrameBufferPointer
+ .data          0x000000000000b000        0x0 build/gamedraw.o
+ .data          0x000000000000b000       0x1c build/game.o
+ .data          0x000000000000b01c        0x0 build/init.o
+ .data          0x000000000000b01c        0x0 build/jtag.o
+ .data          0x000000000000b01c        0x0 build/mailbox.o
+ .data          0x000000000000b01c      0x124 build/main.o
+ .data          0x000000000000b140        0x0 build/menu.o
+ .data          0x000000000000b140        0x0 build/Screens.o
+ .data          0x000000000000b140        0x0 build/SNES.o
+ *.c.o(*)
+
+.igot.plt       0x000000000000b140        0x0
+ .igot.plt      0x0000000000000000        0x0 build/collisions.o
+
+.text           0x000000000000b140     0x1998
+ *.c.o(.text)
+ *(.text)
+ .text          0x000000000000b140       0xf0 build/collisions.o
+                0x000000000000b140                ballColorScan
+ .text          0x000000000000b230       0xd0 build/debug.o
+                0x000000000000b230                SNESButtonsPressed
+                0x000000000000b2c8                SNEScheckIfButtonsPressed
+ .text          0x000000000000b300       0x98 build/drawshapes.o
+                0x000000000000b300                WritePixelAUTO
+                0x000000000000b330                HorizontalLine
+                0x000000000000b34c                VerticalLine
+                0x000000000000b368                Rectangle
+ .text          0x000000000000b398       0x84 build/framebuffer.o
+                0x000000000000b398                InitFrameBuffer
+                0x000000000000b3dc                WritePixelMANUAL
+                0x000000000000b3f8                getPixelColor
+ .text          0x000000000000b41c       0xb8 build/gamedraw.o
+                0x000000000000b41c                drawPaddle
+                0x000000000000b478                drawBall
+ .text          0x000000000000b4d4      0x1f8 build/game.o
+                0x000000000000b4d4                mainGame
+                0x000000000000b600                flipX
+                0x000000000000b61c                flipY
+ .text          0x000000000000b6cc      0x144 build/init.o
+                0x000000000000b6cc                initUART
+                0x000000000000b7a8                cyclehold
+                0x000000000000b7bc                timehold
+ .text          0x000000000000b810       0x8c build/jtag.o
+                0x000000000000b810                EnableJTAG
+ .text          0x000000000000b89c       0x60 build/mailbox.o
+                0x000000000000b89c                MailboxWrite
+                0x000000000000b8c8                MailboxRead
+ .text          0x000000000000b8fc      0x428 build/main.o
+                0x000000000000b910                systemhold
+                0x000000000000bc84                echochar
+ .text          0x000000000000bd24      0x14c build/menu.o
+                0x000000000000bd24                mainMenu
+ .text          0x000000000000be70      0xb70 build/Screens.o
+                0x000000000000be70                GameScreen
+                0x000000000000c0b4                MainMenuScreen
+                0x000000000000c3ec                GameOverScreen
+                0x000000000000c6cc                YouWinScreen
+                0x000000000000c8bc                Clear
+                0x000000000000c8dc                Frame
+ .text          0x000000000000c9e0       0xf8 build/SNES.o
+                0x000000000000c9e0                initSNES
+                0x000000000000ca44                readSNES
+OUTPUT(build/output.elf elf32-littlearm)
+
+.glue_7         0x000000000000cad8        0x0
+ .glue_7        0x0000000000000000        0x0 linker stubs
+
+.glue_7t        0x000000000000cad8        0x0
+ .glue_7t       0x0000000000000000        0x0 linker stubs
+
+.vfp11_veneer   0x000000000000cad8        0x0
+ .vfp11_veneer  0x0000000000000000        0x0 linker stubs
+
+.v4_bx          0x000000000000cad8        0x0
+ .v4_bx         0x0000000000000000        0x0 linker stubs
+
+.iplt           0x000000000000cad8        0x0
+ .iplt          0x0000000000000000        0x0 build/collisions.o
+
+.rel.dyn        0x000000000000cad8        0x0
+ .rel.iplt      0x0000000000000000        0x0 build/collisions.o
+
+.bss            0x000000000000cad8        0x0
+ .bss           0x000000000000cad8        0x0 build/collisions.o
+ .bss           0x000000000000cad8        0x0 build/debug.o
+ .bss           0x000000000000cad8        0x0 build/drawshapes.o
+ .bss           0x000000000000cad8        0x0 build/framebuffer.o
+ .bss           0x000000000000cad8        0x0 build/gamedraw.o
+ .bss           0x000000000000cad8        0x0 build/game.o
+ .bss           0x000000000000cad8        0x0 build/init.o
+ .bss           0x000000000000cad8        0x0 build/jtag.o
+ .bss           0x000000000000cad8        0x0 build/mailbox.o
+ .bss           0x000000000000cad8        0x0 build/main.o
+ .bss           0x000000000000cad8        0x0 build/menu.o
+ .bss           0x000000000000cad8        0x0 build/Screens.o
+ .bss           0x000000000000cad8        0x0 build/SNES.o
+
+.ARM.attributes
+                0x0000000000000000       0x26
+ .ARM.attributes
+                0x0000000000000000       0x26 build/collisions.o
+ .ARM.attributes
+                0x0000000000000026       0x26 build/debug.o
+ .ARM.attributes
+                0x000000000000004c       0x26 build/drawshapes.o
+ .ARM.attributes
+                0x0000000000000072       0x26 build/framebuffer.o
+ .ARM.attributes
+                0x0000000000000098       0x26 build/gamedraw.o
+ .ARM.attributes
+                0x00000000000000be       0x26 build/game.o
+ .ARM.attributes
+                0x00000000000000e4       0x26 build/init.o
+ .ARM.attributes
+                0x000000000000010a       0x26 build/jtag.o
+ .ARM.attributes
+                0x0000000000000130       0x26 build/mailbox.o
+ .ARM.attributes
+                0x0000000000000156       0x26 build/main.o
+ .ARM.attributes
+                0x000000000000017c       0x26 build/menu.o
+ .ARM.attributes
+                0x00000000000001a2       0x26 build/Screens.o
+ .ARM.attributes
+                0x00000000000001c8       0x26 build/SNES.o
+
+.debug_line     0x0000000000000000      0xa3b
+ .debug_line    0x0000000000000000       0x82 build/collisions.o
+ .debug_line    0x0000000000000082       0x75 build/debug.o
+ .debug_line    0x00000000000000f7       0x71 build/drawshapes.o
+ .debug_line    0x0000000000000168       0x6c build/framebuffer.o
+ .debug_line    0x00000000000001d4       0x79 build/gamedraw.o
+ .debug_line    0x000000000000024d       0xc6 build/game.o
+ .debug_line    0x0000000000000313       0x94 build/init.o
+ .debug_line    0x00000000000003a7       0x61 build/jtag.o
+ .debug_line    0x0000000000000408       0x59 build/mailbox.o
+ .debug_line    0x0000000000000461      0x171 build/main.o
+ .debug_line    0x00000000000005d2       0x94 build/menu.o
+ .debug_line    0x0000000000000666      0x350 build/Screens.o
+ .debug_line    0x00000000000009b6       0x85 build/SNES.o
+
+.debug_info     0x0000000000000000      0x4c5
+ .debug_info    0x0000000000000000       0x60 build/collisions.o
+ .debug_info    0x0000000000000060       0x60 build/debug.o
+ .debug_info    0x00000000000000c0       0x65 build/drawshapes.o
+ .debug_info    0x0000000000000125       0x66 build/framebuffer.o
+ .debug_info    0x000000000000018b       0x5e build/gamedraw.o
+ .debug_info    0x00000000000001e9       0x5a build/game.o
+ .debug_info    0x0000000000000243       0x5f build/init.o
+ .debug_info    0x00000000000002a2       0x5a build/jtag.o
+ .debug_info    0x00000000000002fc       0x62 build/mailbox.o
+ .debug_info    0x000000000000035e       0x56 build/main.o
+ .debug_info    0x00000000000003b4       0x5a build/menu.o
+ .debug_info    0x000000000000040e       0x5d build/Screens.o
+ .debug_info    0x000000000000046b       0x5a build/SNES.o
+
+.debug_abbrev   0x0000000000000000      0x102
+ .debug_abbrev  0x0000000000000000       0x14 build/collisions.o
+ .debug_abbrev  0x0000000000000014       0x14 build/debug.o
+ .debug_abbrev  0x0000000000000028       0x14 build/drawshapes.o
+ .debug_abbrev  0x000000000000003c       0x14 build/framebuffer.o
+ .debug_abbrev  0x0000000000000050       0x14 build/gamedraw.o
+ .debug_abbrev  0x0000000000000064       0x14 build/game.o
+ .debug_abbrev  0x0000000000000078       0x14 build/init.o
+ .debug_abbrev  0x000000000000008c       0x14 build/jtag.o
+ .debug_abbrev  0x00000000000000a0       0x14 build/mailbox.o
+ .debug_abbrev  0x00000000000000b4       0x12 build/main.o
+ .debug_abbrev  0x00000000000000c6       0x14 build/menu.o
+ .debug_abbrev  0x00000000000000da       0x14 build/Screens.o
+ .debug_abbrev  0x00000000000000ee       0x14 build/SNES.o
+
+.debug_aranges  0x0000000000000000      0x1a8
+ .debug_aranges
+                0x0000000000000000       0x20 build/collisions.o
+ .debug_aranges
+                0x0000000000000020       0x20 build/debug.o
+ .debug_aranges
+                0x0000000000000040       0x20 build/drawshapes.o
+ .debug_aranges
+                0x0000000000000060       0x20 build/framebuffer.o
+ .debug_aranges
+                0x0000000000000080       0x20 build/gamedraw.o
+ .debug_aranges
+                0x00000000000000a0       0x20 build/game.o
+ .debug_aranges
+                0x00000000000000c0       0x20 build/init.o
+ .debug_aranges
+                0x00000000000000e0       0x20 build/jtag.o
+ .debug_aranges
+                0x0000000000000100       0x20 build/mailbox.o
+ .debug_aranges
+                0x0000000000000120       0x28 build/main.o
+ .debug_aranges
+                0x0000000000000148       0x20 build/menu.o
+ .debug_aranges
+                0x0000000000000168       0x20 build/Screens.o
+ .debug_aranges
+                0x0000000000000188       0x20 build/SNES.o
+
+.debug_ranges   0x0000000000000000       0x20
+ .debug_ranges  0x0000000000000000       0x20 build/main.o
